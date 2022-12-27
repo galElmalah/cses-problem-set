@@ -1,5 +1,7 @@
 package util
 
+import "math"
+
 type NumbersConstraint interface {
 	int | int8 | int16 | int32 | int64 | float32 | float64
 }
@@ -31,4 +33,9 @@ func Min[T NumbersConstraint](values ...T) T {
 		}
 	}
 	return min
+}
+
+func AddModulo(x, y int) int {
+	MOD := int(math.Pow(10.0, 9.0)) + 7
+	return (x + y) % MOD
 }
