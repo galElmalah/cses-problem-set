@@ -71,8 +71,22 @@ func removingDigitsBottomUp(number int) int {
 	return dp[number]
 }
 
+func removingDigitsGreedy(number int) int {
+	c := 0
+	for number != 0 {
+		c++
+		subtract := 0
+		for _, d := range getDigits(number) {
+			subtract = util.Max(subtract, d)
+		}
+		number -= subtract
+	}
+	return c
+}
+
 func main() {
 	fmt.Println(removingDigitsRecursive(27))
 	fmt.Println(removingDigitsMemoized(4434, &map[int]int{}))
-	fmt.Println(removingDigitsBottomUp(27))
+	fmt.Println(removingDigitsBottomUp(4434))
+	fmt.Println(removingDigitsGreedy(4434))
 }
