@@ -20,68 +20,15 @@ var table = []struct {
 
 func TestSum(t *testing.T) {
 
-	t.Run("Regular recursive solution", func(t *testing.T) {
-
-		got := coinCombinationsRecursive([]int{2, 3, 5}, 9)
-		want := 8
-
-		if got != want {
-			t.Errorf("got %d want %d", got, want)
-		}
-	})
-
-	t.Run("Memoized recursive solution", func(t *testing.T) {
-
-		got := coinCombinationsMemoized([]int{2, 3, 5}, 9, &map[int]int{})
-		want := 8
-
-		if got != want {
-			t.Errorf("got %d want %d", got, want)
-		}
-	})
-
 	t.Run("Bottom up solution", func(t *testing.T) {
 
 		got := coinCombinationsBottomUp([]int{2, 3, 5}, 9)
-		want := 8
+		want := 3
 
 		if got != want {
 			t.Errorf("got %d want %d", got, want)
 		}
 	})
-
-	t.Run("Bottom up solution - large input", func(t *testing.T) {
-		largeInput := table[len(table)-1]
-		got := coinCombinationsBottomUp(largeInput.coins, largeInput.target)
-		want := 851260131
-
-		if got != want {
-			t.Errorf("got %d want %d", got, want)
-		}
-	})
-}
-
-func BenchmarkRecursive(b *testing.B) {
-	for _, v := range table {
-		if !v.large {
-			b.Run(fmt.Sprintf("target_size_%d_number_of_coins_%d", v.target, len(v.coins)), func(b *testing.B) {
-				for i := 0; i < b.N; i++ {
-					coinCombinationsRecursive(v.coins, v.target)
-				}
-			})
-		}
-	}
-}
-
-func BenchmarkMemoized(b *testing.B) {
-	for _, v := range table {
-
-		b.Run(fmt.Sprintf("target_size_%d_number_of_coins_%d", v.target, len(v.coins)), func(b *testing.B) {
-			for i := 0; i < b.N; i++ {
-				coinCombinationsMemoized(v.coins, v.target, &map[int]int{})
-			}
-		})
-	}
 
 }
 

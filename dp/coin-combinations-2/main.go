@@ -12,7 +12,7 @@ func coinCombinationsBottomUp(coins []int, t int) int {
 
 	dp[0] = 1
 	for _, c := range coins {
-		for i := 0; i <= t; i++ {
+		for i := 1; i <= t; i++ {
 			if i >= c {
 				dp[i] = util.AddModulo(dp[i], dp[i-c])
 			}
@@ -24,5 +24,5 @@ func coinCombinationsBottomUp(coins []int, t int) int {
 }
 
 func main() {
-	fmt.Println(coinCombinationsBottomUp([]int{2, 3, 5}, 9))
+	fmt.Println(coinCombinationsBottomUp([]int{1, 3}, 9))
 }
