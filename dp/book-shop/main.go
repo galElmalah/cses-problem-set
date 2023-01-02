@@ -41,22 +41,21 @@ func bookShopBottomUp(prices, pages []int, toSpend int) int {
 
 	}
 
-	for i := 0; i <= toSpend; i++ {
-		if i >= prices[0] {
-			dp[0][i] = pages[0]
-		}
-	}
-
-	for i := 1; i < len(pages); i++ {
+	for i := 0; i < len(pages); i++ {
 		for j := 1; j <= toSpend; j++ {
+			if i == 0 && j >= prices[0] {
+				dp[0][i] = pages[0]
+				continue
+			}
 			if dp[i][j] = dp[i-1][j]; j >= prices[i] {
 				dp[i][j] = util.Max(dp[i-1][j], dp[i-1][j-prices[i]]+pages[i])
 			}
 		}
 	}
+
 	for _, v := range dp {
 		fmt.Println(v)
 	}
 
-	return 1
+	return dp[len(pages)-1][toSpend]
 }
